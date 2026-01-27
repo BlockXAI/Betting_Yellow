@@ -77,8 +77,21 @@ export default function Lobby({
               </button>
             </div>
           ) : (
-            <div className="text-center text-gray-500 py-8">
-              Loading balance...
+            <div className="space-y-3">
+              <div className="bg-gray-50 rounded-lg p-4 border-2 border-dashed border-gray-300">
+                <div className="text-sm text-gray-600 text-center">No Balance Found</div>
+                <div className="text-lg font-semibold text-gray-400 text-center mt-1">
+                  Request test funds to get started
+                </div>
+              </div>
+              
+              <button
+                onClick={onRequestFaucet}
+                disabled={isLoading}
+                className="w-full px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+              >
+                {isLoading ? 'Requesting...' : 'Request Test Funds'}
+              </button>
             </div>
           )}
         </div>

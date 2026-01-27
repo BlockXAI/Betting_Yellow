@@ -2,7 +2,7 @@ import { WSMessage, WSResponse, ClearNodeConfig, UnifiedBalance, AppSession } fr
 
 export class ClearNodeClient {
   private ws: WebSocket | null = null;
-  private url: string;
+  private wsUrl = process.env.NEXT_PUBLIC_CLEARNODE_WS_URL || 'wss://sandbox.clearnode.yellow.com';
   private reconnectAttempts = 0;
   private maxReconnectAttempts = 5;
   private reconnectDelay = 2000;
@@ -18,15 +18,11 @@ export class ClearNodeClient {
   public onError?: (error: any) => void;
   public onLog?: (type: string, message: string, data?: any) => void;
 
-  constructor(url: string = 'wss://sandbox.clearnode.yellow.com') {
-    this.url = url;
-  }
-
   connect(): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        this.log('info', `Connecting to ${this.url}...`);
-        this.ws = new WebSocket(this.url);
+        this.log('info', `Connecting to ${this.wsUrl}...`);
+        this.ws = new WebSocket(this.wsUrl);
 
         this.ws.onopen = () => {
           this.log('info', 'Connected to ClearNode');
