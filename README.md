@@ -255,22 +255,53 @@ const handleSubmitRound = async (winner: string) => {
 **Chain ID**: 31337  
 **RPC**: http://127.0.0.1:8545
 
-| Contract | Address | Status |
-|----------|---------|--------|
-| **Custody** | `0x8658501c98C3738026c4e5c361c6C3fa95DfB255` | ✅ Live |
-| **Adjudicator** | `0xcbbc03a873c11beeFA8D99477E830be48d8Ae6D7` | ✅ Live |
-| **USDC Token** | `0xbD24c53072b9693A35642412227043Ffa5fac382` | ✅ Live |
-| **WETH Token** | `0xAf119209932D7EDe63055E60854E81acC4063a12` | ✅ Live |
-| **BalanceChecker** | `0x730dB3A1D3Ca47e7BaEb260c24C74ED4378726Bc` | ✅ Live |
+| Contract | Address | Purpose | Integration |
+|----------|---------|---------|-------------|
+| **Custody** | [`0x8658501c98C3738026c4e5c361c6C3fa95DfB255`](https://github.com/erc7824/nitrolite) | Holds user deposits | [`lib/contracts.ts`](./lib/contracts.ts#L52-L73) |
+| **Adjudicator** | [`0xcbbc03a873c11beeFA8D99477E830be48d8Ae6D7`](https://github.com/erc7824/nitrolite) | Dispute resolution | [`lib/contracts.ts`](./lib/contracts.ts#L75-L96) |
+| **USDC Token** | [`0xbD24c53072b9693A35642412227043Ffa5fac382`](https://github.com/erc7824/nitrolite) | Test stablecoin | [`lib/contracts.ts`](./lib/contracts.ts#L98-L119) |
+| **WETH Token** | [`0xAf119209932D7EDe63055E60854E81acC4063a12`](https://github.com/erc7824/nitrolite) | Wrapped ETH | [`lib/contracts.ts`](./lib/contracts.ts#L98-L119) |
+| **BalanceChecker** | [`0x730dB3A1D3Ca47e7BaEb260c24C74ED4378726Bc`](https://github.com/erc7824/nitrolite) | Multi-call balance queries | [`lib/contracts.ts`](./lib/contracts.ts#L121-L142) |
 
-**ClearNode WebSocket**: `ws://localhost:8001/ws` (via Nitrolite Docker)
+**ClearNode Coordinator**: [`ws://localhost:8001/ws`](http://localhost:8001) (via [Nitrolite Docker](https://github.com/erc7824/nitrolite))
 
-### 🔜 Sepolia Testnet (Planned)
+#### � Contract Source & Verification
 
-Deployment planned for Phase 6 of [Integration Plan](./YELLOW_SOLVENCY_INTEGRATION_PLAN.md):
-- Deploy Yellow contracts to Sepolia
-- Add SolvencyRegistry contract for ZK proofs
-- Enable public verification
+These contracts are deployed from the [Nitrolite repository](https://github.com/erc7824/nitrolite) when running:
+```bash
+cd ~/nitrolite
+sudo docker-compose up
+```
+
+**Deployment logs** show these addresses in the Docker console output. To verify:
+
+```bash
+# Check Anvil is running
+curl http://127.0.0.1:8545 -X POST -H "Content-Type: application/json" \
+  --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}'
+
+# View contract code at address
+cast code 0x8658501c98C3738026c4e5c361c6C3fa95DfB255 --rpc-url http://127.0.0.1:8545
+```
+
+**Environment Variables**: All addresses are configured in [`.env`](./.env) and injected at runtime.
+
+---
+
+### �🔜 Sepolia Testnet (Planned)
+
+Deployment planned for **Phase 6** of [Integration Plan](./YELLOW_SOLVENCY_INTEGRATION_PLAN.md):
+
+- **Custody Contract** → Deploy to Sepolia with same functionality
+- **Adjudicator Contract** → Enable public dispute resolution
+- **SolvencyRegistry** → New contract for ZK proof verification
+- **Public Dashboard** → Verify proofs on Sepolia Etherscan
+
+**Expected Sepolia Addresses**: TBD (Phase 6 - estimated 3-4 hours)
+
+Once deployed, contracts will be viewable at:
+- `https://sepolia.etherscan.io/address/<contract_address>`
+- Public verification enabled for all contracts
 
 ---
 
