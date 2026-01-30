@@ -6,17 +6,17 @@ declare global {
   }
 }
 
-const ANVIL_CHAIN_ID = '0x7A69'; // 31337 in hex
-const ANVIL_CHAIN_CONFIG = {
-  chainId: ANVIL_CHAIN_ID,
-  chainName: 'Anvil Local',
+const AVALANCHE_FUJI_CHAIN_ID = '0xA869'; // 43113 in hex
+const AVALANCHE_FUJI_CONFIG = {
+  chainId: AVALANCHE_FUJI_CHAIN_ID,
+  chainName: 'Avalanche Fuji Testnet',
   nativeCurrency: {
-    name: 'Ether',
-    symbol: 'ETH',
+    name: 'AVAX',
+    symbol: 'AVAX',
     decimals: 18,
   },
-  rpcUrls: ['http://127.0.0.1:8545'],
-  blockExplorerUrls: [],
+  rpcUrls: ['https://api.avax-test.network/ext/bc/C/rpc'],
+  blockExplorerUrls: ['https://testnet.snowtrace.io/'],
 };
 
 export async function connectWallet(): Promise<{ address: string; signer: JsonRpcSigner }> {
@@ -31,11 +31,11 @@ export async function connectWallet(): Promise<{ address: string; signer: JsonRp
   
   // Check current network
   const network = await provider.getNetwork();
-  const targetChainId = process.env.NEXT_PUBLIC_CHAIN_ID || '31337';
+  const targetChainId = process.env.NEXT_PUBLIC_CHAIN_ID || '43113';
   
-  // Switch to Anvil if not already on it
+  // Switch to Avalanche Fuji if not already on it
   if (network.chainId.toString() !== targetChainId) {
-    await switchToAnvil();
+    await switchToAvalancheFuji();
   }
   
   const signer = await provider.getSigner();
@@ -44,16 +44,16 @@ export async function connectWallet(): Promise<{ address: string; signer: JsonRp
   return { address, signer };
 }
 
-export async function switchToAnvil(): Promise<void> {
+export async function switchToAvalancheFuji(): Promise<void> {
   if (!window.ethereum) {
     throw new Error('MetaMask not installed');
   }
 
   try {
-    // Try to switch to Anvil
+    // Try to switch to Avalanche Fuji
     await window.ethereum.request({
       method: 'wallet_switchEthereumChain',
-      params: [{ chainId: ANVIL_CHAIN_ID }],
+      params: [{ chainId: AVALANCHE_FUJI_CHAIN_ID }],
     });
   } catch (error: any) {
     // Chain not added, try to add it
@@ -61,10 +61,10 @@ export async function switchToAnvil(): Promise<void> {
       try {
         await window.ethereum.request({
           method: 'wallet_addEthereumChain',
-          params: [ANVIL_CHAIN_CONFIG],
+          params: [AVALANCHE_FUJI_CONFIG],
         });
       } catch (addError) {
-        throw new Error('Failed to add Anvil network to MetaMask');
+        throw new Error('Failed to add Avalanche Fuji network to MetaMask');
       }
     } else {
       throw error;

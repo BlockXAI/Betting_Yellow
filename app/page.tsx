@@ -60,7 +60,7 @@ export default function Home() {
 
     service.onConnected = () => {
       setIsConnected(true);
-      addLog('info', '✅ Connected to Yellow ClearNode (Local)');
+      addLog('info', '✅ Connected to Yellow ClearNode');
     };
 
     service.onDisconnected = () => {
@@ -117,7 +117,7 @@ export default function Home() {
       const { address } = await connectWallet();
       setWalletAddress(address);
       addLog('info', `✅ Wallet connected: ${address}`);
-      addLog('info', '🔗 Network: Anvil Local (Chain ID: 31337)');
+      addLog('info', '🔗 Network: Avalanche Fuji (Chain ID: 43113)');
       
       // Initialize Yellow SDK with provider
       const provider = new ethers.BrowserProvider(window.ethereum);
@@ -304,7 +304,7 @@ export default function Home() {
       await service.closeChannel();
       
       addLog('info', '✅ Channel closed successfully');
-      addLog('info', '⛓️ Settlement transaction recorded on Anvil');
+      addLog('info', '⛓️ Settlement transaction recorded on Avalanche');
       
       setFinalPayout({
         playerA: currentSession.playerA,

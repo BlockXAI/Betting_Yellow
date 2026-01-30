@@ -249,59 +249,81 @@ const handleSubmitRound = async (winner: string) => {
 
 ## 🚀 Deployed Contracts
 
-### ⭐ Anvil Local Chain (Development)
+### 🔺 Avalanche Fuji Testnet (Primary Network)
 
-**Network**: Anvil Local  
-**Chain ID**: 31337  
-**RPC**: http://127.0.0.1:8545
+**Network**: Avalanche Fuji Testnet  
+**Chain ID**: 43113 (0xA869)  
+**RPC**: https://api.avax-test.network/ext/bc/C/rpc  
+**Explorer**: https://testnet.snowtrace.io/  
+**Faucet**: https://faucets.chain.link/fuji
 
-| Contract | Address | Purpose | Integration |
-|----------|---------|---------|-------------|
-| **Custody** | [`0x8658501c98C3738026c4e5c361c6C3fa95DfB255`](https://github.com/erc7824/nitrolite) | Holds user deposits | [`lib/contracts.ts`](./lib/contracts.ts#L52-L73) |
-| **Adjudicator** | [`0xcbbc03a873c11beeFA8D99477E830be48d8Ae6D7`](https://github.com/erc7824/nitrolite) | Dispute resolution | [`lib/contracts.ts`](./lib/contracts.ts#L75-L96) |
-| **USDC Token** | [`0xbD24c53072b9693A35642412227043Ffa5fac382`](https://github.com/erc7824/nitrolite) | Test stablecoin | [`lib/contracts.ts`](./lib/contracts.ts#L98-L119) |
-| **WETH Token** | [`0xAf119209932D7EDe63055E60854E81acC4063a12`](https://github.com/erc7824/nitrolite) | Wrapped ETH | [`lib/contracts.ts`](./lib/contracts.ts#L98-L119) |
-| **BalanceChecker** | [`0x730dB3A1D3Ca47e7BaEb260c24C74ED4378726Bc`](https://github.com/erc7824/nitrolite) | Multi-call balance queries | [`lib/contracts.ts`](./lib/contracts.ts#L121-L142) |
+| Contract | Status | Purpose | Integration |
+|----------|--------|---------|-------------|
+| **Custody** | 🔄 Deploy Pending | Holds user deposits | [`lib/contracts.ts`](./lib/contracts.ts#L52-L73) |
+| **Adjudicator** | 🔄 Deploy Pending | Dispute resolution | [`lib/contracts.ts`](./lib/contracts.ts#L75-L96) |
+| **USDC Token** | 🔄 Deploy Pending | Test stablecoin | [`lib/contracts.ts`](./lib/contracts.ts#L98-L119) |
+| **WETH Token** | 🔄 Deploy Pending | Wrapped ETH | [`lib/contracts.ts`](./lib/contracts.ts#L98-L119) |
+| **BalanceChecker** | 🔄 Deploy Pending | Multi-call balance queries | [`lib/contracts.ts`](./lib/contracts.ts#L121-L142) |
 
-**ClearNode Coordinator**: [`ws://localhost:8001/ws`](http://localhost:8001) (via [Nitrolite Docker](https://github.com/erc7824/nitrolite))
+**ClearNode Coordinator**: `ws://localhost:8001/ws` (local) or deploy to cloud
 
-#### � Contract Source & Verification
+#### 📍 How to Deploy Contracts
 
-These contracts are deployed from the [Nitrolite repository](https://github.com/erc7824/nitrolite) when running:
+**Complete deployment guide**: [`AVALANCHE_DEPLOYMENT.md`](./AVALANCHE_DEPLOYMENT.md)
+
+**Quick Deploy**:
 ```bash
-cd ~/nitrolite
-sudo docker-compose up
+# 1. Get testnet AVAX from faucet
+# Visit: https://faucets.chain.link/fuji
+
+# 2. Clone Nitrolite contracts
+git clone https://github.com/erc7824/nitrolite.git
+cd nitrolite/contracts
+
+# 3. Deploy using Foundry
+forge create src/Custody.sol:Custody \
+  --rpc-url https://api.avax-test.network/ext/bc/C/rpc \
+  --private-key $PRIVATE_KEY \
+  --verify
+
+# 4. Copy deployed addresses to .env
+# NEXT_PUBLIC_CUSTODY_CONTRACT=0xYourAddress...
 ```
 
-**Deployment logs** show these addresses in the Docker console output. To verify:
-
+**Verify Deployment**:
 ```bash
-# Check Anvil is running
-curl http://127.0.0.1:8545 -X POST -H "Content-Type: application/json" \
-  --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}'
+# Check contract on SnowTrace
+# https://testnet.snowtrace.io/address/<CONTRACT_ADDRESS>
 
-# View contract code at address
-cast code 0x8658501c98C3738026c4e5c361c6C3fa95DfB255 --rpc-url http://127.0.0.1:8545
+# Test RPC connection
+curl -X POST https://api.avax-test.network/ext/bc/C/rpc \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}'
 ```
 
-**Environment Variables**: All addresses are configured in [`.env`](./.env) and injected at runtime.
+#### 🎯 Why Avalanche?
+
+- ⚡ **Fast**: ~2 second block times (vs 12s on Ethereum)
+- 💰 **Cheap**: Low gas fees (~$0.01 per transaction)
+- 🔗 **EVM Compatible**: Works with existing Ethereum tools
+- 🌐 **High Throughput**: 4,500+ TPS capacity
+- 🧪 **Great Testnet**: Free AVAX from faucet, SnowTrace explorer
 
 ---
 
-### �🔜 Sepolia Testnet (Planned)
+### 🔜 Additional Networks (Future)
 
-Deployment planned for **Phase 6** of [Integration Plan](./YELLOW_SOLVENCY_INTEGRATION_PLAN.md):
+Planned deployments for Phase 6+:
 
-- **Custody Contract** → Deploy to Sepolia with same functionality
-- **Adjudicator Contract** → Enable public dispute resolution
-- **SolvencyRegistry** → New contract for ZK proof verification
-- **Public Dashboard** → Verify proofs on Sepolia Etherscan
+#### Ethereum Sepolia
+- **Use Case**: SolvencyProof registry contract
+- **Purpose**: Public ZK proof verification
+- **Status**: Planned for Phase 6
 
-**Expected Sepolia Addresses**: TBD (Phase 6 - estimated 3-4 hours)
-
-Once deployed, contracts will be viewable at:
-- `https://sepolia.etherscan.io/address/<contract_address>`
-- Public verification enabled for all contracts
+#### Avalanche Mainnet (C-Chain)
+- **Use Case**: Production deployment
+- **Chain ID**: 43114
+- **Status**: After successful Fuji testing
 
 ---
 
@@ -345,34 +367,51 @@ cd Betting_Yellow
 npm install
 ```
 
-### 2. Set Up Nitrolite Infrastructure (WSL/Linux)
+### 2. Deploy Contracts to Avalanche Fuji
+
+**Full Guide**: See [`AVALANCHE_DEPLOYMENT.md`](./AVALANCHE_DEPLOYMENT.md)
 
 ```bash
-# In WSL2 terminal (if on Windows)
-cd ~/
+# Get testnet AVAX
+# Visit: https://faucets.chain.link/fuji
+
+# Clone contracts repo
 git clone https://github.com/erc7824/nitrolite.git
-cd nitrolite
+cd nitrolite/contracts
 
-# Initialize git submodules
-git submodule update --init --recursive
+# Deploy contracts (requires Foundry)
+forge create src/Custody.sol:Custody \
+  --rpc-url https://api.avax-test.network/ext/bc/C/rpc \
+  --private-key $PRIVATE_KEY
 
-# Start services (Anvil, ClearNode, PostgreSQL)
-sudo docker-compose up
+# Save the deployed address!
 ```
 
-**Expected output**: Contracts deployed, ClearNode running on port 8001
+### 2b. Set Up ClearNode (Optional - Local Development)
+
+```bash
+cd ~/nitrolite
+
+# Start ClearNode + Database only
+sudo docker-compose up clearnode database
+```
+
+**Expected output**: ClearNode running on port 8001
 
 ### 3. Configure Environment
 
-The `.env` file is already configured with deployed contract addresses:
+Update `.env` with your deployed Avalanche contract addresses:
 
 ```bash
-# Already set in .env
-NEXT_PUBLIC_RPC_URL=http://127.0.0.1:8545
-NEXT_PUBLIC_CHAIN_ID=31337
+# Avalanche Fuji Testnet
+NEXT_PUBLIC_RPC_URL=https://api.avax-test.network/ext/bc/C/rpc
+NEXT_PUBLIC_CHAIN_ID=43113
 NEXT_PUBLIC_CLEARNODE_URL=ws://localhost:8001/ws
-NEXT_PUBLIC_CUSTODY_CONTRACT=0x8658501c98C3738026c4e5c361c6C3fa95DfB255
-# ... more contracts
+
+# Paste your deployed addresses here
+NEXT_PUBLIC_CUSTODY_CONTRACT=0xYourCustodyAddress
+NEXT_PUBLIC_ADJUDICATOR_CONTRACT=0xYourAdjudicatorAddress
+NEXT_PUBLIC_TOKEN_CONTRACT=0xYourTokenAddress
 ```
 
 ### 4. Run Development Server
@@ -385,22 +424,24 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ### 5. Test the Flow
 
-1. **Connect Wallet** → MetaMask will prompt to add Anvil network
-2. **Import Test Account** (optional):
-   - Private key: `0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80`
-   - This account has 10,000 test ETH
-3. **Deposit ETH** → Click "Manage" → Deposit 0.5 ETH to channel
+1. **Connect Wallet** → MetaMask will prompt to add Avalanche Fuji
+2. **Get Test AVAX**:
+   - Visit: https://faucets.chain.link/fuji
+   - Request 0.5 AVAX (free)
+3. **Deposit AVAX** → Click "Manage" → Deposit 0.1 AVAX to channel
 4. **Create Match** → Enter opponent address + wager amount
 5. **Play Rounds** → Click "Player A/B Wins" (instant, no gas!)
-6. **Close Session** → Settlement transaction records final state
-7. **Withdraw** → Get your payout back to wallet
+6. **Close Session** → Settlement transaction on Avalanche (~2s confirmation)
+7. **Verify on SnowTrace** → Check transaction at https://testnet.snowtrace.io/
+8. **Withdraw** → Get your payout back to wallet
 
 ---
 
 ## 📚 Documentation
 
-- [📋 Integration Plan](./YELLOW_SOLVENCY_INTEGRATION_PLAN.md) - 8-phase roadmap (27-37 hours)
-- [🔧 Nitrolite Setup](./NITROLITE_SETUP.md) - Infrastructure setup guide
+- [� Avalanche Deployment](./AVALANCHE_DEPLOYMENT.md) - Deploy contracts to Fuji testnet
+- [�📋 Integration Plan](./YELLOW_SOLVENCY_INTEGRATION_PLAN.md) - 8-phase roadmap (27-37 hours)
+- [🔧 Nitrolite Setup](./NITROLITE_SETUP.md) - Infrastructure setup guide (legacy)
 - [📖 Contracts Documentation](./lib/contracts.ts) - On-chain integration
 - [🌐 Service Documentation](./lib/nitroliteService.ts) - Off-chain coordination
 - [🎨 Component Library](./components/ChannelManager.tsx) - UI components
