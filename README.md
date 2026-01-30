@@ -445,11 +445,14 @@ Betting_Yellow/
 
 ## 🎯 Roadmap: Beyond Phase 1
 
-**Current Status**: ✅ Phase 1 Complete - Yellow SDK Integrated
+**Current Status**: ✅ Phase 2 Complete - Session Export Active
+
+**Completed Phases**:
+- ✅ **Phase 1** (4-6hrs): Yellow SDK Frontend Migration - Complete
+- ✅ **Phase 2** (2-3hrs): Session State Export to CSV - Complete
 
 **Next Phases** (see [Integration Plan](./YELLOW_SOLVENCY_INTEGRATION_PLAN.md)):
 
-- **Phase 2** (2-3hrs): Export session state to CSV
 - **Phase 3** (4-5hrs): Build Merkle tree from session data
 - **Phase 4** (2-3hrs): Scan reserves from custody contract
 - **Phase 5** (6-8hrs): Generate ZK solvency proofs
@@ -457,7 +460,7 @@ Betting_Yellow/
 - **Phase 7** (2-3hrs): Publish proofs on-chain
 - **Phase 8** (4-5hrs): Build public verification dashboard
 
-**Total**: 8 phases, 27-37 hours estimated
+**Progress**: 2/8 phases complete (25%)
 
 ---
 

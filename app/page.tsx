@@ -5,11 +5,12 @@ import { NitroliteService, ChannelState } from '@/lib/nitroliteService';
 import { connectWallet } from '@/lib/wallet';
 import { LogEntry } from '@/lib/types';
 import { getChannelBalance } from '@/lib/contracts';
+import { ExportResult } from '@/lib/sessionExporter';
 import WalletConnect from '@/components/WalletConnect';
 import EventLog from '@/components/EventLog';
 import ChannelManager from '@/components/ChannelManager';
 import Match from '@/components/Match';
-import { AlertCircle, CheckCircle, XCircle, Wallet } from 'lucide-react';
+import { AlertCircle, CheckCircle, XCircle, Wallet, Download, FileText } from 'lucide-react';
 import { ethers } from 'ethers';
 
 type Screen = 'lobby' | 'match' | 'closed';
@@ -39,6 +40,9 @@ export default function Home() {
     amountA: string;
     amountB: string;
   } | null>(null);
+
+  const [exportResult, setExportResult] = useState<ExportResult | null>(null);
+  const [isExporting, setIsExporting] = useState(false);
 
   const addLog = (type: LogEntry['type'], message: string, data?: any) => {
     setLogs(prev => [...prev, {
@@ -248,6 +252,44 @@ export default function Home() {
     }
   };
 
+  const exportSessionData = async () => {
+    if (!currentSession) return;
+    
+    setIsExporting(true);
+    try {
+      addLog('info', '📤 Exporting session data to CSV...');
+      
+      const response = await fetch('/api/export-epoch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sessionId: currentSession.sessionId,
+          participants: [currentSession.playerA, currentSession.playerB],
+          allocations: currentSession.allocations,
+          timestamp: Date.now(),
+          rounds: currentSession.round,
+        }),
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        setExportResult(result.data);
+        addLog('info', `✅ Session exported successfully!`, {
+          epochId: result.data.epochId,
+          participants: result.data.participantCount,
+          totalLiabilities: result.data.totalLiabilities,
+        });
+      } else {
+        throw new Error(result.error || 'Export failed');
+      }
+    } catch (err: any) {
+      addLog('error', '❌ Failed to export session', err?.message || err);
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   const handleCloseSession = async () => {
     if (!currentSession) return;
     
@@ -273,6 +315,10 @@ export default function Home() {
       
       setScreen('closed');
       
+      // Auto-export session data after close
+      addLog('info', '📊 Auto-exporting session data...');
+      await exportSessionData();
+      
       // Refresh balance after settlement
       if (walletAddress) {
         await new Promise(resolve => setTimeout(resolve, 2000));
@@ -289,6 +335,7 @@ export default function Home() {
     setScreen('lobby');
     setCurrentSession(null);
     setFinalPayout(null);
+    setExportResult(null);
   };
 
   return (
@@ -465,12 +512,39 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <button
-                      onClick={handleBackToLobby}
-                      className="w-full mt-6 px-4 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
-                    >
-                      Back to Lobby
-                    </button>
+                    {exportResult && (
+                      <div className="mt-6 bg-green-50 rounded-lg p-4 border border-green-200">
+                        <div className="flex items-center gap-2 mb-2">
+                          <FileText className="text-green-600" size={20} />
+                          <h4 className="font-semibold text-green-900">Session Data Exported</h4>
+                        </div>
+                        <div className="space-y-1 text-sm text-green-800">
+                          <p><span className="font-medium">Epoch ID:</span> {exportResult.epochId}</p>
+                          <p><span className="font-medium">Total Liabilities:</span> {exportResult.totalLiabilities} ETH</p>
+                          <p><span className="font-medium">Participants:</span> {exportResult.participantCount}</p>
+                          <p className="text-xs text-green-700 mt-2">
+                            📁 Saved to: <code className="bg-green-100 px-1 rounded">solvency/epochs/{exportResult.epochId}/</code>
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="flex gap-3 mt-6">
+                      <button
+                        onClick={exportSessionData}
+                        disabled={isExporting || !currentSession}
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                      >
+                        <Download size={20} />
+                        {isExporting ? 'Exporting...' : 'Re-export Data'}
+                      </button>
+                      <button
+                        onClick={handleBackToLobby}
+                        className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                      >
+                        Back to Lobby
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}
