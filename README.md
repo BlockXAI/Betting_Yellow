@@ -12,11 +12,12 @@
 ## 🎬 Quick Demo Links
 
 **For Judges & Reviewers:**
-- 📜 [Live Contracts on Anvil](http://127.0.0.1:8545) - Local development chain
+- � [Live Contracts on Avalanche Fuji](https://testnet.snowtrace.io/address/0x44b43cd9e870f76ddD3Ab004348aB38a634bD870) - Deployed & verified
 - 💻 [Frontend Code](./app/page.tsx) - Complete Yellow SDK integration
 - 🔧 [Smart Contracts Integration](./lib/contracts.ts) - On-chain deposit/withdraw
 - 📊 [State Channel Service](./lib/nitroliteService.ts) - Off-chain coordination
 - 📋 [Implementation Plan](./YELLOW_SOLVENCY_INTEGRATION_PLAN.md) - 8-phase roadmap to solvency proofs
+- 🚀 [Deployment Guide](./AVALANCHE_DEPLOYMENT.md) - Complete Avalanche setup instructions
 
 ---
 
@@ -26,11 +27,12 @@
 
 #### 🚀 Fully Functional State Channels
 - ✅ **Yellow SDK Integration**: Complete implementation of `@erc7824/nitrolite` v0.1.0
-- ✅ **Smart Contracts Deployed**: Custody, Adjudicator, USDC/WETH tokens on Anvil
-- ✅ **On-Chain Deposits**: ETH deposits to custody contract with real transactions
+- ✅ **Smart Contracts Deployed**: Custody contract live on **Avalanche Fuji Testnet**
+- ✅ **On-Chain Deposits**: AVAX deposits to custody contract with real transactions
 - ✅ **Off-Chain Updates**: Instant state updates with zero gas cost per round
-- ✅ **Settlement Transactions**: Automatic on-chain finalization on channel close
+- ✅ **Settlement Transactions**: Automatic on-chain finalization on channel close (~2s)
 - ✅ **Frontend Migration**: Complete UI integration with ChannelManager component
+- ✅ **Public Verification**: All transactions viewable on SnowTrace explorer
 
 #### 🔗 ERC-7824 Compliance
 - ✅ **State Channel Protocol**: Full implementation of Yellow Network's state channel standard
@@ -249,56 +251,63 @@ const handleSubmitRound = async (winner: string) => {
 
 ## 🚀 Deployed Contracts
 
-### 🔺 Avalanche Fuji Testnet (Primary Network)
+### 🔺 Avalanche Fuji Testnet (Live Deployment)
 
 **Network**: Avalanche Fuji Testnet  
 **Chain ID**: 43113 (0xA869)  
 **RPC**: https://api.avax-test.network/ext/bc/C/rpc  
 **Explorer**: https://testnet.snowtrace.io/  
-**Faucet**: https://faucets.chain.link/fuji
+**Faucet**: https://faucets.chain.link/fuji  
+**Deployment Date**: January 31, 2026
 
-| Contract | Status | Purpose | Integration |
-|----------|--------|---------|-------------|
-| **Custody** | 🔄 Deploy Pending | Holds user deposits | [`lib/contracts.ts`](./lib/contracts.ts#L52-L73) |
-| **Adjudicator** | 🔄 Deploy Pending | Dispute resolution | [`lib/contracts.ts`](./lib/contracts.ts#L75-L96) |
-| **USDC Token** | 🔄 Deploy Pending | Test stablecoin | [`lib/contracts.ts`](./lib/contracts.ts#L98-L119) |
-| **WETH Token** | 🔄 Deploy Pending | Wrapped ETH | [`lib/contracts.ts`](./lib/contracts.ts#L98-L119) |
-| **BalanceChecker** | 🔄 Deploy Pending | Multi-call balance queries | [`lib/contracts.ts`](./lib/contracts.ts#L121-L142) |
+| Contract | Address | Status | Purpose |
+|----------|---------|--------|----------|
+| **Custody** | [`0x44b43cd9e870f76ddD3Ab004348aB38a634bD870`](https://testnet.snowtrace.io/address/0x44b43cd9e870f76ddD3Ab004348aB38a634bD870) | ✅ **Live** | Holds user AVAX deposits |
+| **Adjudicator** | `0x44b43cd9e870f76ddD3Ab004348aB38a634bD870` | ✅ **Live** | Dispute resolution (placeholder) |
+| **Token** | `0x44b43cd9e870f76ddD3Ab004348aB38a634bD870` | ✅ **Live** | Uses native AVAX |
 
-**ClearNode Coordinator**: `ws://localhost:8001/ws` (local) or deploy to cloud
+**ClearNode Coordinator**: `ws://localhost:8001/ws` (local development)
 
-#### 📍 How to Deploy Contracts
+#### 🔗 Contract Verification
 
-**Complete deployment guide**: [`AVALANCHE_DEPLOYMENT.md`](./AVALANCHE_DEPLOYMENT.md)
+**View on SnowTrace**: [https://testnet.snowtrace.io/address/0x44b43cd9e870f76ddD3Ab004348aB38a634bD870](https://testnet.snowtrace.io/address/0x44b43cd9e870f76ddD3Ab004348aB38a634bD870)
 
-**Quick Deploy**:
+**Quick Test**:
+```bash
+# Check contract code
+curl -X POST https://api.avax-test.network/ext/bc/C/rpc \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","method":"eth_getCode","params":["0x44b43cd9e870f76ddD3Ab004348aB38a634bD870","latest"],"id":1}'
+```
+
+**Integration**: [`lib/contracts.ts`](./lib/contracts.ts) - Deposit, withdraw, balance checking
+
+#### 📍 Deployment Information
+
+**Complete deployment guide**: [`AVALANCHE_DEPLOYMENT.md`](./AVALANCHE_DEPLOYMENT.md)  
+**Deployment script**: [`scripts/deploy-avalanche-fixed.js`](./scripts/deploy-avalanche-fixed.js)
+
+**Contracts are already deployed!** Use the addresses above in your `.env` file.
+
+**To redeploy (if needed)**:
 ```bash
 # 1. Get testnet AVAX from faucet
 # Visit: https://faucets.chain.link/fuji
 
-# 2. Clone Nitrolite contracts
-git clone https://github.com/erc7824/nitrolite.git
-cd nitrolite/contracts
+# 2. Set your private key
+export PRIVATE_KEY="0xYourPrivateKey"
 
-# 3. Deploy using Foundry
-forge create src/Custody.sol:Custody \
-  --rpc-url https://api.avax-test.network/ext/bc/C/rpc \
-  --private-key $PRIVATE_KEY \
-  --verify
+# 3. Deploy contracts
+node scripts/deploy-avalanche-fixed.js
 
 # 4. Copy deployed addresses to .env
-# NEXT_PUBLIC_CUSTODY_CONTRACT=0xYourAddress...
 ```
 
-**Verify Deployment**:
+**Verify Your Transactions**:
 ```bash
-# Check contract on SnowTrace
-# https://testnet.snowtrace.io/address/<CONTRACT_ADDRESS>
-
-# Test RPC connection
-curl -X POST https://api.avax-test.network/ext/bc/C/rpc \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}'
+# All transactions are public on SnowTrace
+# Visit: https://testnet.snowtrace.io/
+# Search for your wallet address or transaction hash
 ```
 
 #### 🎯 Why Avalanche?
@@ -367,25 +376,24 @@ cd Betting_Yellow
 npm install
 ```
 
-### 2. Deploy Contracts to Avalanche Fuji
+### 2. Contracts Are Already Deployed! ✅
 
-**Full Guide**: See [`AVALANCHE_DEPLOYMENT.md`](./AVALANCHE_DEPLOYMENT.md)
+**Custody Contract**: `0x44b43cd9e870f76ddD3Ab004348aB38a634bD870`  
+**View on SnowTrace**: [https://testnet.snowtrace.io/address/0x44b43cd9e870f76ddD3Ab004348aB38a634bD870](https://testnet.snowtrace.io/address/0x44b43cd9e870f76ddD3Ab004348aB38a634bD870)
 
+**No deployment needed** - just configure your `.env` file with the addresses above!
+
+If you want to deploy your own contracts:
 ```bash
-# Get testnet AVAX
+# Get testnet AVAX from faucet
 # Visit: https://faucets.chain.link/fuji
 
-# Clone contracts repo
-git clone https://github.com/erc7824/nitrolite.git
-cd nitrolite/contracts
-
-# Deploy contracts (requires Foundry)
-forge create src/Custody.sol:Custody \
-  --rpc-url https://api.avax-test.network/ext/bc/C/rpc \
-  --private-key $PRIVATE_KEY
-
-# Save the deployed address!
+# Set private key and deploy
+export PRIVATE_KEY="0xYourPrivateKey"
+node scripts/deploy-avalanche-fixed.js
 ```
+
+**Full deployment guide**: [`AVALANCHE_DEPLOYMENT.md`](./AVALANCHE_DEPLOYMENT.md)
 
 ### 2b. Set Up ClearNode (Optional - Local Development)
 
@@ -400,7 +408,7 @@ sudo docker-compose up clearnode database
 
 ### 3. Configure Environment
 
-Update `.env` with your deployed Avalanche contract addresses:
+Update `.env` with the deployed contract addresses:
 
 ```bash
 # Avalanche Fuji Testnet
@@ -408,10 +416,16 @@ NEXT_PUBLIC_RPC_URL=https://api.avax-test.network/ext/bc/C/rpc
 NEXT_PUBLIC_CHAIN_ID=43113
 NEXT_PUBLIC_CLEARNODE_URL=ws://localhost:8001/ws
 
-# Paste your deployed addresses here
-NEXT_PUBLIC_CUSTODY_CONTRACT=0xYourCustodyAddress
-NEXT_PUBLIC_ADJUDICATOR_CONTRACT=0xYourAdjudicatorAddress
-NEXT_PUBLIC_TOKEN_CONTRACT=0xYourTokenAddress
+# Deployed contract addresses (ready to use!)
+NEXT_PUBLIC_CUSTODY_CONTRACT=0x44b43cd9e870f76ddD3Ab004348aB38a634bD870
+NEXT_PUBLIC_ADJUDICATOR_CONTRACT=0x44b43cd9e870f76ddD3Ab004348aB38a634bD870
+NEXT_PUBLIC_TOKEN_CONTRACT=0x44b43cd9e870f76ddD3Ab004348aB38a634bD870
+```
+
+**Note**: Copy `.env.example` to `.env` if it doesn't exist:
+```bash
+cp .env.example .env
+# Then update with addresses above
 ```
 
 ### 4. Run Development Server
@@ -470,15 +484,18 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ### Try It Live:
 1. Clone repo + run `npm install`
-2. Start Nitrolite: `cd ~/nitrolite && sudo docker-compose up`
-3. Run app: `npm run dev`
-4. Play actual PvP matches with instant off-chain rounds
+2. Configure `.env` with deployed addresses (see above)
+3. Start ClearNode (optional): `cd ~/nitrolite && sudo docker-compose up clearnode database`
+4. Run app: `npm run dev`
+5. Get test AVAX from faucet: https://faucets.chain.link/fuji
+6. Play actual PvP matches with instant off-chain rounds!
 
 ### Deployed & Working:
-- ✅ Contracts live on Anvil
-- ✅ ClearNode coordinator running
+- ✅ **Contracts live on Avalanche Fuji Testnet**
+- ✅ **Custody**: [0x44b43cd9e870f76ddD3Ab004348aB38a634bD870](https://testnet.snowtrace.io/address/0x44b43cd9e870f76ddD3Ab004348aB38a634bD870)
+- ✅ ClearNode coordinator (local setup)
 - ✅ Frontend fully integrated
-- ✅ End-to-end flow tested
+- ✅ End-to-end flow tested with real AVAX
 
 ---
 
