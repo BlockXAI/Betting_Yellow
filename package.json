@@ -6,12 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "merkle:build": "npx tsx scripts/build-merkle-tree.ts"
   },
   "dependencies": {
     "@erc7824/nitrolite": "^0.1.0",
     "ethers": "^6.9.0",
+    "keccak256": "^1.0.6",
     "lucide-react": "^0.294.0",
+    "merkletreejs": "^0.6.0",
     "next": "^14.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -26,6 +29,8 @@
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.0.0"
   }
 }

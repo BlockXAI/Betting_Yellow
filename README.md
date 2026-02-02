@@ -453,8 +453,10 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ## 📚 Documentation
 
-- [� Avalanche Deployment](./AVALANCHE_DEPLOYMENT.md) - Deploy contracts to Fuji testnet
-- [�📋 Integration Plan](./YELLOW_SOLVENCY_INTEGRATION_PLAN.md) - 8-phase roadmap (27-37 hours)
+- [🔺 Avalanche Deployment](./AVALANCHE_DEPLOYMENT.md) - Deploy contracts to Fuji testnet
+- [📋 Integration Plan](./YELLOW_SOLVENCY_INTEGRATION_PLAN.md) - 8-phase roadmap (27-37 hours)
+- [✅ Phase 2 Complete](./PHASE_2_COMPLETE.md) - Session export implementation
+- [✅ Phase 3 Complete](./PHASE_3_COMPLETE.md) - Merkle tree backend
 - [🔧 Nitrolite Setup](./NITROLITE_SETUP.md) - Infrastructure setup guide (legacy)
 - [📖 Contracts Documentation](./lib/contracts.ts) - On-chain integration
 - [🌐 Service Documentation](./lib/nitroliteService.ts) - Off-chain coordination
@@ -534,22 +536,22 @@ Betting_Yellow/
 
 ## 🎯 Roadmap: Beyond Phase 1
 
-**Current Status**: ✅ Phase 2 Complete - Session Export Active
+**Current Status**: ✅ Phase 3 Complete - Merkle Tree Backend Ready
 
 **Completed Phases**:
 - ✅ **Phase 1** (4-6hrs): Yellow SDK Frontend Migration - Complete
 - ✅ **Phase 2** (2-3hrs): Session State Export to CSV - Complete
+- ✅ **Phase 3** (4-5hrs): Build Merkle tree from session data - Complete
 
 **Next Phases** (see [Integration Plan](./YELLOW_SOLVENCY_INTEGRATION_PLAN.md)):
 
-- **Phase 3** (4-5hrs): Build Merkle tree from session data
 - **Phase 4** (2-3hrs): Scan reserves from custody contract
 - **Phase 5** (6-8hrs): Generate ZK solvency proofs
 - **Phase 6** (3-4hrs): Deploy to Sepolia testnet
 - **Phase 7** (2-3hrs): Publish proofs on-chain
 - **Phase 8** (4-5hrs): Build public verification dashboard
 
-**Progress**: 2/8 phases complete (25%)
+**Progress**: 3/8 phases complete (37.5%)
 
 ---
 
