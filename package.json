@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "merkle:build": "npx tsx scripts/build-merkle-tree.ts"
+    "merkle:build": "npx tsx scripts/build-merkle-tree.ts",
+    "reserves:scan": "npx tsx scripts/scan-reserves.ts"
   },
   "dependencies": {
     "@erc7824/nitrolite": "^0.1.0",
