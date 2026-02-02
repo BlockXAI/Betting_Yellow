@@ -458,6 +458,7 @@ Open [http://localhost:3000](http://localhost:3000)
 - [✅ Phase 2 Complete](./PHASE_2_COMPLETE.md) - Session export implementation
 - [✅ Phase 3 Complete](./PHASE_3_COMPLETE.md) - Merkle tree backend
 - [✅ Phase 4 Complete](./PHASE_4_COMPLETE.md) - Reserves scanner
+- [✅ Phase 5 Complete](./PHASE_5_COMPLETE.md) - ZK proof generation
 - [🔧 Nitrolite Setup](./NITROLITE_SETUP.md) - Infrastructure setup guide (legacy)
 - [📖 Contracts Documentation](./lib/contracts.ts) - On-chain integration
 - [🌐 Service Documentation](./lib/nitroliteService.ts) - Off-chain coordination
@@ -537,22 +538,22 @@ Betting_Yellow/
 
 ## 🎯 Roadmap: Beyond Phase 1
 
-**Current Status**: ✅ Phase 4 Complete - Reserves Scanner Ready
+**Current Status**: ✅ Phase 5 Complete - ZK Proof Generation Ready
 
 **Completed Phases**:
 - ✅ **Phase 1** (4-6hrs): Yellow SDK Frontend Migration - Complete
 - ✅ **Phase 2** (2-3hrs): Session State Export to CSV - Complete
 - ✅ **Phase 3** (4-5hrs): Build Merkle tree from session data - Complete
 - ✅ **Phase 4** (2-3hrs): Scan reserves from custody contract - Complete
+- ✅ **Phase 5** (6-8hrs): Generate ZK solvency proofs - Complete
 
 **Next Phases** (see [Integration Plan](./YELLOW_SOLVENCY_INTEGRATION_PLAN.md)):
 
-- **Phase 5** (6-8hrs): Generate ZK solvency proofs
 - **Phase 6** (3-4hrs): Deploy to Sepolia testnet
 - **Phase 7** (2-3hrs): Publish proofs on-chain
 - **Phase 8** (4-5hrs): Build public verification dashboard
 
-**Progress**: 4/8 phases complete (50%) 🎉
+**Progress**: 5/8 phases complete (62.5%) 🎉
 
 ---
 

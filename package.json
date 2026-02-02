@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "merkle:build": "npx tsx scripts/build-merkle-tree.ts",
-    "reserves:scan": "npx tsx scripts/scan-reserves.ts"
+    "reserves:scan": "npx tsx scripts/scan-reserves.ts",
+    "proof:generate": "npx tsx scripts/generate-proof.ts",
+    "proof:verify": "npx tsx scripts/verify-proof.ts"
   },
   "dependencies": {
     "@erc7824/nitrolite": "^0.1.0",
@@ -28,7 +30,9 @@
     "@types/react-dom": "^18.2.0",
     "@types/ws": "^8.5.9",
     "autoprefixer": "^10.4.16",
+    "circomlib": "^2.0.5",
     "postcss": "^8.4.31",
+    "snarkjs": "^0.7.6",
     "tailwindcss": "^3.3.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
