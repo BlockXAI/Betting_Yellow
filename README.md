@@ -21,13 +21,16 @@
 
 ---
 
-## �🎬 Quick Demo Links
+## 🎬 Quick Demo Links
 
 **For Judges & Reviewers:**
 -  [Live Contracts on Avalanche Fuji](https://testnet.snowtrace.io/address/0x44b43cd9e870f76ddD3Ab004348aB38a634bD870) - Deployed & verified
 - 🌐 [Public Solvency Dashboard](./app/solvency/page.tsx) - **Verify proofs publicly** (Phase 8)
-- 💻 [Frontend Code](./app/page.tsx) - Complete Yellow SDK integration
-- 🔧 [Smart Contracts Integration](./lib/contracts.ts) - On-chain deposit/withdraw
+- � [Yellow Quick Start](./YELLOW_DEMO_QUICK_START.md) - **Start here!** Complete demo guide
+- 🎮 [Multi-Player Demo](./MULTIPLAYER_DEMO.md) - **NEW!** Session sharing & join match
+- ⚡ [No-Gas Demo](./NO_GAS_DEMO_MODE.md) - **NEW!** Demo without testnet funds
+- �💻 [Frontend Code](./app/page.tsx) - Complete Yellow SDK integration with multi-player
+- 🔧 [Smart Contracts Integration](./lib/contracts.ts) - On-chain deposit/withdraw with demo mode
 - 📊 [State Channel Service](./lib/nitroliteService.ts) - Off-chain coordination
 - 🔐 [ZK Proof System](./circuits/solvency.circom) - Privacy-preserving solvency verification
 - 📋 [Implementation Plan](./YELLOW_SOLVENCY_INTEGRATION_PLAN.md) - **8-phase roadmap (100% COMPLETE)**
@@ -47,6 +50,9 @@
 - ✅ **Settlement Transactions**: Automatic on-chain finalization on channel close (~2s)
 - ✅ **Frontend Migration**: Complete UI integration with ChannelManager component
 - ✅ **Public Verification**: All transactions viewable on SnowTrace explorer
+- ✅ **Multi-Player Support**: Session sharing with Join Match feature
+- ✅ **Demo Mode**: Works without testnet funds for instant demos
+- ✅ **Balance Tracking**: Real-time balance updates after session settlement
 
 #### 🔗 ERC-7824 Compliance
 - ✅ **State Channel Protocol**: Full implementation of Yellow Network's state channel standard
@@ -58,7 +64,9 @@
 - ✅ **PvP Gaming on Channels**: First peer-to-peer wagering demo on Yellow SDK
 - ✅ **Zero-Gas Rounds**: Players compete without paying gas for each move
 - ✅ **Economic Model**: Wager amounts adjust instantly off-chain, settle once on-chain
-- ✅ **Solvency Proof System**: Complete cryptographic proof pipeline (5/8 phases)
+- ✅ **Solvency Proof System**: Complete cryptographic proof pipeline (8/8 phases)
+- ✅ **Session Discovery**: Share session IDs for true peer-to-peer coordination
+- ✅ **Demo-First Design**: Test Yellow Network flow without testnet setup
 
 #### 🔐 Solvency Proof Pipeline (COMPLETE)
 - ✅ **Session Export**: CSV/JSON export of liabilities after each match
@@ -81,7 +89,29 @@
 
 ---
 
-## 🎯 The Problem: High Gas Costs Kill Gaming UX
+## � Latest Features (Feb 2026)
+
+### Multi-Player Session Sharing 🎮
+- **Join Match Form**: Opponents can join your session using a Session ID
+- **Copy Button**: One-click session ID sharing
+- **Cross-Tab Support**: Play in separate browser tabs
+- **See**: [Multi-Player Demo Guide](./MULTIPLAYER_DEMO.md)
+
+### Demo Mode (No Gas Required!) ⚡
+- **Works Immediately**: Test without testnet funds
+- **Fallback Balances**: Shows 0.5 ETH for instant demos
+- **Perfect for Judges**: Demonstrate Yellow Network flow in seconds
+- **See**: [No-Gas Demo Mode Guide](./NO_GAS_DEMO_MODE.md)
+
+### Enhanced UX Improvements 🎨
+- **Balance Updates**: Automatically reflects session winnings
+- **Faucet Integration**: Direct links when wallet has no AVAX
+- **Yellow Proof Panel**: Real-time metrics for off-chain actions
+- **Session Tracking**: View action count, latency, and settlement tx
+
+---
+
+## �� The Problem: High Gas Costs Kill Gaming UX
 
 ### The Scenario:
 You're playing a PvP wager game. Every round costs gas:
@@ -488,22 +518,49 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ### 5. Test the Flow
 
+#### Option A: Full Demo (With Testnet Funds)
+
 1. **Connect Wallet** → MetaMask will prompt to add Avalanche Fuji
 2. **Get Test AVAX**:
    - Visit: https://faucets.chain.link/fuji
    - Request 0.5 AVAX (free)
 3. **Deposit AVAX** → Click "Manage" → Deposit 0.1 AVAX to channel
 4. **Create Match** → Enter opponent address + wager amount
-5. **Play Rounds** → Click "Player A/B Wins" (instant, no gas!)
-6. **Close Session** → Settlement transaction on Avalanche (~2s confirmation)
-7. **Verify on SnowTrace** → Check transaction at https://testnet.snowtrace.io/
-8. **Withdraw** → Get your payout back to wallet
+5. **Copy Session ID** → Share with opponent using the copy button
+6. **Opponent Joins** → They use "Join Match" form with your Session ID
+7. **Play Rounds** → Click "Player A/B Wins" (instant, no gas!)
+8. **Close Session** → Settlement transaction on Avalanche (~2s confirmation)
+9. **Balance Updates** → See your winnings reflected in channel balance
+10. **Verify on SnowTrace** → Check transaction at https://testnet.snowtrace.io/
+11. **Withdraw** → Get your payout back to wallet
+
+#### Option B: Quick Demo (No Testnet Funds Needed)
+
+1. **Connect Wallet** → MetaMask will prompt to add Avalanche Fuji
+2. **Skip Deposit** → Balance shows 0.5 ETH (demo fallback)
+3. **Create Match** → Enter any opponent address + wager
+4. **Play 10+ Rounds** → All instant, no wallet popups!
+5. **Watch Yellow Proof Panel** → See off-chain action count incrementing
+6. **Close Session** → Settlement metrics recorded
+7. **Perfect for demos!** → Shows Yellow Network efficiency without setup
+
+**See detailed guides**:
+- 🎮 [Multi-Player Demo Guide](./MULTIPLAYER_DEMO.md)
+- ⚡ [No-Gas Demo Mode](./NO_GAS_DEMO_MODE.md)
+- 🚀 [Yellow Network Quick Start](./YELLOW_DEMO_QUICK_START.md)
 
 ---
 
 ## 📚 Documentation
 
-- [🔺 Avalanche Deployment](./AVALANCHE_DEPLOYMENT.md) - Deploy contracts to Fuji testnet
+### Quick Start Guides
+- 🚀 [Yellow Network Quick Start](./YELLOW_DEMO_QUICK_START.md) - **Start here!** Complete demo walkthrough
+- 🎮 [Multi-Player Demo](./MULTIPLAYER_DEMO.md) - **NEW!** Two-player session guide
+- ⚡ [No-Gas Demo Mode](./NO_GAS_DEMO_MODE.md) - **NEW!** Demo without testnet funds
+- � [ClearNode Setup](./CLEARNODE_SETUP.md) - Local coordinator setup
+
+### Deployment & Integration
+- [�🔺 Avalanche Deployment](./AVALANCHE_DEPLOYMENT.md) - Deploy contracts to Fuji testnet
 - [📋 Integration Plan](./YELLOW_SOLVENCY_INTEGRATION_PLAN.md) - 8-phase roadmap (27-37 hours)
 - [✅ Phase 2 Complete](./PHASE_2_COMPLETE.md) - Session export implementation
 - [✅ Phase 3 Complete](./PHASE_3_COMPLETE.md) - Merkle tree backend
@@ -512,10 +569,12 @@ Open [http://localhost:3000](http://localhost:3000)
 - [✅ Phase 6 Complete](./PHASE_6_COMPLETE.md) - On-chain verification
 - [✅ Phase 7 Complete](./PHASE_7_COMPLETE.md) - Automated proof publication
 - [✅ Phase 8 Complete](./PHASE_8_COMPLETE.md) - Public verification dashboard
-- [🔧 Nitrolite Setup](./NITROLITE_SETUP.md) - Infrastructure setup guide (legacy)
+
+### Technical Documentation
 - [📖 Contracts Documentation](./lib/contracts.ts) - On-chain integration
 - [🌐 Service Documentation](./lib/nitroliteService.ts) - Off-chain coordination
 - [🎨 Component Library](./components/ChannelManager.tsx) - UI components
+- [🔧 Nitrolite Setup](./NITROLITE_SETUP.md) - Infrastructure setup guide (legacy)
 
 ---
 
@@ -639,10 +698,12 @@ Betting_Yellow/
 #### State Channel Components
 | File | Purpose | Lines |
 |------|---------|-------|
-| [`app/page.tsx`](./app/page.tsx) | Main app logic with Yellow SDK | ~480 |
+| [`app/page.tsx`](./app/page.tsx) | Main app logic with Yellow SDK | ~625 |
 | [`lib/nitroliteService.ts`](./lib/nitroliteService.ts) | State channel service | ~365 |
-| [`lib/contracts.ts`](./lib/contracts.ts) | Smart contract integration | ~181 |
-| [`components/ChannelManager.tsx`](./components/ChannelManager.tsx) | Deposit/withdraw UI | ~271 |
+| [`lib/contracts.ts`](./lib/contracts.ts) | Smart contract integration w/ demo mode | ~181 |
+| [`components/ChannelManager.tsx`](./components/ChannelManager.tsx) | Deposit/withdraw UI with faucet links | ~300 |
+| [`components/Match.tsx`](./components/Match.tsx) | Match UI with session sharing | ~162 |
+| [`components/YellowProofPanel.tsx`](./components/YellowProofPanel.tsx) | Real-time Yellow Network metrics | ~190 |
 
 #### Solvency Proof System
 | File | Purpose | Lines |
