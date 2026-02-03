@@ -11,7 +11,7 @@ import EventLog from '@/components/EventLog';
 import ChannelManager from '@/components/ChannelManager';
 import Match from '@/components/Match';
 import ProofHistoryDashboard from '@/components/ProofHistoryDashboard';
-import { AlertCircle, CheckCircle, XCircle, Wallet, Download, FileText } from 'lucide-react';
+import { AlertCircle, CheckCircle, XCircle, Wallet, Download, FileText, Shield } from 'lucide-react';
 import { ethers } from 'ethers';
 
 type Screen = 'lobby' | 'match' | 'closed';
