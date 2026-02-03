@@ -13,6 +13,7 @@
     "proof:verify": "npx tsx scripts/verify-proof.ts",
     "proof:publish": "npx tsx scripts/publish-proof.ts",
     "proof:verify-onchain": "npx tsx scripts/verify-on-chain.ts",
+    "proof:automate": "npx tsx scripts/automate-proof.ts",
     "verifier:deploy": "node scripts/deploy-verifier.js"
   },
   "dependencies": {

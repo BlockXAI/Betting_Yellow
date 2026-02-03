@@ -55,6 +55,8 @@
 - ✅ **Full Verification**: 9-point verification checklist with commitment validation
 - ✅ **On-Chain Publication**: Publish proofs to blockchain for public auditability
 - ✅ **Public Verification**: Anyone can verify proofs via smart contract
+- ✅ **Automated Pipeline**: Zero-touch proof generation after session close
+- ✅ **Real-Time Dashboard**: Live proof history with status monitoring
 
 #### 📊 Technical Completeness
 - ✅ **Contract Layer**: [`lib/contracts.ts`](./lib/contracts.ts) - Deposit, withdraw, balance checking
@@ -494,6 +496,7 @@ Open [http://localhost:3000](http://localhost:3000)
 - [✅ Phase 4 Complete](./PHASE_4_COMPLETE.md) - Reserves scanner
 - [✅ Phase 5 Complete](./PHASE_5_COMPLETE.md) - ZK proof generation
 - [✅ Phase 6 Complete](./PHASE_6_COMPLETE.md) - On-chain verification
+- [✅ Phase 7 Complete](./PHASE_7_COMPLETE.md) - Automated proof publication
 - [🔧 Nitrolite Setup](./NITROLITE_SETUP.md) - Infrastructure setup guide (legacy)
 - [📖 Contracts Documentation](./lib/contracts.ts) - On-chain integration
 - [🌐 Service Documentation](./lib/nitroliteService.ts) - Off-chain coordination
@@ -548,19 +551,21 @@ Traditional exchanges suffer from **opacity** - users must trust the platform ho
 
 ### Try It Live - Solvency Proofs:
 ```bash
-# Full solvency verification pipeline
-npm run merkle:build epoch_1738525000000         # Build Merkle tree from session
+# Automated pipeline (Phase 7) - Runs all steps automatically
+npm run proof:automate epoch_1738525000000  # Complete pipeline
+npm run proof:automate                      # Auto-detect latest epoch
+
+# Manual pipeline (individual steps)
+npm run merkle:build epoch_1738525000000         # Build Merkle tree
 npm run reserves:scan epoch_1738525000000        # Scan on-chain reserves
 npm run proof:generate epoch_1738525000000       # Generate ZK proof
 npm run proof:verify epoch_1738525000000         # Verify proof off-chain
-npm run proof:publish epoch_1738525000000        # Publish to blockchain (Phase 6)
-npm run proof:verify-onchain epoch_1738525000000 # Verify on-chain (Phase 6)
+npm run proof:publish epoch_1738525000000        # Publish to blockchain
+npm run proof:verify-onchain epoch_1738525000000 # Verify on-chain
 
 # Auto-detect latest epoch
 npm run proof:generate        # Uses most recent session
-npm run proof:verify          # Verifies latest proof
-npm run proof:publish         # Publishes to blockchain
-npm run proof:verify-onchain  # Verifies on-chain
+npm run proof:automate        # Runs complete automated pipeline
 ```
 
 ### Deployed & Working:
@@ -618,15 +623,19 @@ Betting_Yellow/
 | [`scripts/publish-proof.ts`](./scripts/publish-proof.ts) | Publish proof on-chain | ~272 |
 | [`scripts/verify-on-chain.ts`](./scripts/verify-on-chain.ts) | Verify proof on-chain | ~278 |
 | [`scripts/deploy-verifier.js`](./scripts/deploy-verifier.js) | Deploy verifier contract | ~209 |
+| [`lib/proofAutomation.ts`](./lib/proofAutomation.ts) | Automated proof service | ~374 |
+| [`components/ProofHistoryDashboard.tsx`](./components/ProofHistoryDashboard.tsx) | Proof history UI | ~284 |
+| [`scripts/automate-proof.ts`](./scripts/automate-proof.ts) | Automated pipeline script | ~174 |
+| [`app/api/proof-automation/route.ts`](./app/api/proof-automation/route.ts) | Automation API | ~236 |
 | [`lib/sessionExporter.ts`](./lib/sessionExporter.ts) | Session data export | ~124 |
 
-**Total Lines of Code**: ~3,800+ (including on-chain verification)
+**Total Lines of Code**: ~4,900+ (including automation)
 
 ---
 
 ## 🎯 Roadmap: Beyond Phase 1
 
-**Current Status**: ✅ Phase 6 Complete - On-Chain Verification Ready
+**Current Status**: ✅ Phase 7 Complete - Automated Proof Publication Ready
 
 **Completed Phases**:
 - ✅ **Phase 1** (4-6hrs): Yellow SDK Frontend Migration - Complete
@@ -635,13 +644,13 @@ Betting_Yellow/
 - ✅ **Phase 4** (2-3hrs): Scan reserves from custody contract - Complete
 - ✅ **Phase 5** (6-8hrs): Generate ZK solvency proofs - Complete
 - ✅ **Phase 6** (3-4hrs): Deploy to testnet with on-chain verification - Complete
+- ✅ **Phase 7** (2-3hrs): Automate proof publication - Complete
 
 **Next Phases** (see [Integration Plan](./YELLOW_SOLVENCY_INTEGRATION_PLAN.md)):
 
-- **Phase 7** (2-3hrs): Automate proof publication
 - **Phase 8** (4-5hrs): Build public verification dashboard
 
-**Progress**: 6/8 phases complete (75%) 🎉
+**Progress**: 7/8 phases complete (87.5%) 🎉
 
 ---
 
