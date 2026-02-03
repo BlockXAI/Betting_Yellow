@@ -9,10 +9,22 @@
 
 ---
 
-## 🎬 Quick Demo Links
+## � **LIVE: Public Solvency Dashboard**
+
+**View real blockchain data NOW**: http://localhost:3000/solvency *(after running `npm run dev`)*
+
+✅ **Working Features**:
+- Real-time proof data from Avalanche Fuji testnet
+- 1 solvent proof published and verified on-chain
+- Transaction hash: `0xc1c6c66e394b6df63a587fa98b63e84d5ccfef27b8ba338053dfd710e864442a`
+- View on SnowTrace: [Contract 0x2bFa3B66608C1B1aCF0F8a370c2bA809BE5fa4E2](https://testnet.snowtrace.io/address/0x2bFa3B66608C1B1aCF0F8a370c2bA809BE5fa4E2)
+
+---
+
+## �🎬 Quick Demo Links
 
 **For Judges & Reviewers:**
-- 🔺 [Live Contracts on Avalanche Fuji](https://testnet.snowtrace.io/address/0x44b43cd9e870f76ddD3Ab004348aB38a634bD870) - Deployed & verified
+-  [Live Contracts on Avalanche Fuji](https://testnet.snowtrace.io/address/0x44b43cd9e870f76ddD3Ab004348aB38a634bD870) - Deployed & verified
 - 🌐 [Public Solvency Dashboard](./app/solvency/page.tsx) - **Verify proofs publicly** (Phase 8)
 - 💻 [Frontend Code](./app/page.tsx) - Complete Yellow SDK integration
 - 🔧 [Smart Contracts Integration](./lib/contracts.ts) - On-chain deposit/withdraw
@@ -544,10 +556,24 @@ Traditional exchanges suffer from **opacity** - users must trust the platform ho
 - Real on-chain settlement transactions
 - Clean separation of on-chain (deposits/settlement) vs off-chain (gameplay)
 
-### Try It Live - Gaming:
+### Try It Live - Public Dashboard (No Setup Required!):
+```bash
+npm install
+npm run dev
+# Navigate to http://localhost:3000/solvency
+```
+
+**What you'll see**:
+- ✅ Real proof data from Avalanche Fuji blockchain
+- ✅ 1 solvent proof (250% reserves-to-liabilities ratio)
+- ✅ Search and filter functionality
+- ✅ Inclusion proof verification
+- ✅ Direct SnowTrace transaction links
+
+### Try It Live - Gaming (Requires ClearNode):
 1. Clone repo + run `npm install`
-2. Configure `.env` with deployed addresses (see above)
-3. Start ClearNode (optional): `cd ~/nitrolite && sudo docker-compose up clearnode database`
+2. Configure `.env` with deployed addresses (already configured)
+3. Start ClearNode: `cd ~/nitrolite && sudo docker-compose up clearnode database`
 4. Run app: `npm run dev`
 5. Get test AVAX from faucet: https://faucets.chain.link/fuji
 6. Play actual PvP matches with instant off-chain rounds!
@@ -574,10 +600,13 @@ npm run proof:automate        # Runs complete automated pipeline
 ### Deployed & Working:
 - ✅ **Contracts live on Avalanche Fuji Testnet**
 - ✅ **Custody**: [0x44b43cd9e870f76ddD3Ab004348aB38a634bD870](https://testnet.snowtrace.io/address/0x44b43cd9e870f76ddD3Ab004348aB38a634bD870)
+- ✅ **SolvencyVerifier**: [0x2bFa3B66608C1B1aCF0F8a370c2bA809BE5fa4E2](https://testnet.snowtrace.io/address/0x2bFa3B66608C1B1aCF0F8a370c2bA809BE5fa4E2)
+- ✅ **Live Proof on Chain**: [Transaction 0xc1c6c66e...](https://testnet.snowtrace.io/tx/0xc1c6c66e394b6df63a587fa98b63e84d5ccfef27b8ba338053dfd710e864442a)
+- ✅ **Public Dashboard**: [http://localhost:3000/solvency](http://localhost:3000/solvency) - **WORKING with real data!**
 - ✅ **Solvency Pipeline**: Complete cryptographic proof system
 - ✅ **8/8 Phases**: All phases complete - Session export, Merkle trees, reserves scanner, ZK proofs, on-chain verification, automation, public dashboard
-- ✅ **Public Dashboard**: `/solvency` - Verify proofs publicly
-- ✅ ClearNode coordinator (local setup)
+- ✅ **1 Solvent Proof**: 0.5 AVAX reserves > 0.2 AVAX liabilities (250% ratio)
+- ✅ ClearNode coordinator (local setup available)
 - ✅ Frontend fully integrated
 - ✅ End-to-end flow tested with real AVAX
 

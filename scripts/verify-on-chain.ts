@@ -1,13 +1,19 @@
 /**
  * Phase 6: Verify Solvency Proof On-Chain
  * 
- * Verifies a published solvency proof against the on-chain SolvencyVerifier contract.
+ * This script verifies a published proof by reading it from the blockchain
+ * and comparing it with local metadata.
  * 
  * Usage:
- *   npx tsx scripts/verify-on-chain.ts [epoch-id]
+ *   npx tsx scripts/verify-on-chain.ts [epochId]
  *   npx tsx scripts/verify-on-chain.ts epoch_1738525000000
+ * 
+ * Requirements:
+ *   - Published proof on SolvencyVerifier contract
+ *   - Local merkle_metadata.json for verification
  */
 
+import 'dotenv/config';
 import { ethers } from 'ethers';
 import * as fs from 'fs/promises';
 import * as path from 'path';

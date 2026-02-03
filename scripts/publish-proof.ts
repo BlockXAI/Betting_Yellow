@@ -9,6 +9,7 @@
  *   npx tsx scripts/publish-proof.ts epoch_1738525000000
  */
 
+import 'dotenv/config';
 import { ethers } from 'ethers';
 import * as fs from 'fs/promises';
 import * as path from 'path';
