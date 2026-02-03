@@ -14,7 +14,8 @@
     "proof:publish": "npx tsx scripts/publish-proof.ts",
     "proof:verify-onchain": "npx tsx scripts/verify-on-chain.ts",
     "proof:automate": "npx tsx scripts/automate-proof.ts",
-    "verifier:deploy": "node scripts/deploy-verifier.js"
+    "verifier:deploy": "node scripts/deploy-verifier.js",
+    "clearnode:mock": "node scripts/mock-clearnode.js"
   },
   "dependencies": {
     "@erc7824/nitrolite": "^0.1.0",

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Trophy, XCircle, Play } from 'lucide-react';
+import { Sword, Trophy, XCircle, Copy, Check, Play } from 'lucide-react';
 import { formatBalance } from '@/lib/wallet';
 
 interface MatchProps {
@@ -25,8 +25,15 @@ export default function Match({
   currentAddress,
   onSubmitRound,
   onCloseSession,
-  isLoading
+  isLoading,
 }: MatchProps) {
+  const [copied, setCopied] = useState(false);
+  
+  const copySessionId = () => {
+    navigator.clipboard.writeText(sessionId);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
   const [selectedWinner, setSelectedWinner] = useState<string>('');
 
   const handleSubmitRound = () => {
@@ -45,8 +52,35 @@ export default function Match({
     <div className="space-y-6">
       <div className="bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg p-6 text-white">
         <h2 className="text-2xl font-bold mb-2">Match In Progress</h2>
-        <p className="text-purple-100">Session: {sessionId}</p>
         <p className="text-purple-100">Round: {round}</p>
+      </div>
+
+      <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+        <div className="flex items-center justify-between mb-2">
+          <div className="text-sm font-semibold text-purple-900">📋 Session ID (Share with Opponent)</div>
+          <button
+            onClick={copySessionId}
+            className="flex items-center gap-1 px-3 py-1 bg-purple-600 text-white rounded text-xs hover:bg-purple-700 transition-colors"
+          >
+            {copied ? (
+              <>
+                <Check className="w-3 h-3" />
+                Copied!
+              </>
+            ) : (
+              <>
+                <Copy className="w-3 h-3" />
+                Copy
+              </>
+            )}
+          </button>
+        </div>
+        <div className="text-xs text-purple-700 font-mono break-all bg-white p-2 rounded border border-purple-100">
+          {sessionId}
+        </div>
+        <div className="text-xs text-purple-600 mt-2">
+          💡 Opponent needs: Session ID + Your address + Wager amount
+        </div>
       </div>
 
       <div className="bg-white rounded-lg border border-gray-200 p-6">

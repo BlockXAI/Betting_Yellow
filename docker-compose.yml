@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # PostgreSQL database for ClearNode state
+  database:
+    image: postgres:14-alpine
+    container_name: yellow_db
+    environment:
+      POSTGRES_DB: clearnode
+      POSTGRES_USER: clearnode
+      POSTGRES_PASSWORD: clearnode_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - yellow_network
+
+  # ClearNode - Yellow Network state channel coordinator
+  clearnode:
+    image: ghcr.io/erc7824/clearnode:latest
+    container_name: yellow_clearnode
+    depends_on:
+      - database
+    environment:
+      DATABASE_URL: postgres://clearnode:clearnode_dev@database:5432/clearnode
+      WS_PORT: 8001
+      LOG_LEVEL: debug
+    ports:
+      - "8001:8001"
+    networks:
+      - yellow_network
+    command: ["node", "dist/server.js"]
+    restart: unless-stopped
+
+volumes:
+  db_data:
+
+networks:
+  yellow_network:
+    driver: bridge

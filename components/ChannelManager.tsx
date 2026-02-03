@@ -54,6 +54,9 @@ export default function ChannelManager({ address, onDeposit, onWithdraw }: Chann
       if (amount <= 0) {
         throw new Error('Amount must be greater than 0');
       }
+      if (parseFloat(walletBalance) === 0) {
+        throw new Error('Get test AVAX from: https://faucets.chain.link/fuji');
+      }
       if (amount > parseFloat(walletBalance)) {
         throw new Error('Insufficient wallet balance');
       }
@@ -252,6 +255,29 @@ export default function ChannelManager({ address, onDeposit, onWithdraw }: Chann
         <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-3">
           <div className="text-xs text-blue-600 font-medium mb-1">Transaction Hash:</div>
           <div className="text-xs text-blue-800 font-mono break-all">{txHash}</div>
+        </div>
+      )}
+
+      {/* Faucet Warning */}
+      {parseFloat(walletBalance) === 0 && (
+        <div className="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-4">
+          <div className="flex items-start gap-2 mb-2">
+            <AlertCircle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <div className="font-semibold text-yellow-900 mb-1">⛽ Need Test AVAX</div>
+              <div className="text-sm text-yellow-800 mb-2">
+                Your wallet has no AVAX for gas fees. Get free testnet funds:
+              </div>
+              <a
+                href="https://faucets.chain.link/fuji"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-4 py-2 bg-yellow-500 text-white rounded-lg font-medium hover:bg-yellow-600 transition-colors text-sm"
+              >
+                🚰 Get Free Test AVAX
+              </a>
+            </div>
+          </div>
         </div>
       )}
 
