@@ -10,7 +10,10 @@
     "merkle:build": "npx tsx scripts/build-merkle-tree.ts",
     "reserves:scan": "npx tsx scripts/scan-reserves.ts",
     "proof:generate": "npx tsx scripts/generate-proof.ts",
-    "proof:verify": "npx tsx scripts/verify-proof.ts"
+    "proof:verify": "npx tsx scripts/verify-proof.ts",
+    "proof:publish": "npx tsx scripts/publish-proof.ts",
+    "proof:verify-onchain": "npx tsx scripts/verify-on-chain.ts",
+    "verifier:deploy": "node scripts/deploy-verifier.js"
   },
   "dependencies": {
     "@erc7824/nitrolite": "^0.1.0",
