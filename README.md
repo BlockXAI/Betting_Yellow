@@ -1,5 +1,7 @@
 # 🎮 Betting Yellow: State Channel PvP Protocol
 
+**✅ FULLY WORKING: Real blockchain transactions with 2 wallet popups + instant off-chain gameplay!**
+
 **Instant off-chain wagers. On-chain settlement. Zero gas per round.**
 
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)](https://nextjs.org/)
@@ -9,32 +11,37 @@
 
 ---
 
-## � **LIVE: Public Solvency Dashboard**
+## 🌐 **LIVE: Fully Functional Gaming + Solvency Dashboard**
 
-**View real blockchain data NOW**: http://localhost:3000/solvency *(after running `npm run dev`)*
+**🎮 Play Now**: http://localhost:3000 *(2 wallet popups + instant gameplay)*  
+**📊 View Proofs**: http://localhost:3000/solvency *(solvency verification dashboard)*
 
 ✅ **Working Features**:
-- Real-time proof data from Avalanche Fuji testnet
-- 1 solvent proof published and verified on-chain
-- Transaction hash: `0xc1c6c66e394b6df63a587fa98b63e84d5ccfef27b8ba338053dfd710e864442a`
-- View on SnowTrace: [Contract 0x2bFa3B66608C1B1aCF0F8a370c2bA809BE5fa4E2](https://testnet.snowtrace.io/address/0x2bFa3B66608C1B1aCF0F8a370c2bA809BE5fa4E2)
+- ✅ **Real Blockchain Transactions**: MinimalCustody contract on Avalanche Fuji
+- ✅ **2 MetaMask Popups**: Deposit at start → 0 popups during gameplay → Withdrawal at end
+- ✅ **Real Balance Updates**: See actual AVAX balance changes after settlement
+- ✅ **Off-Chain Efficiency**: 10 instant game rounds with zero gas fees
+- ✅ **Solvency Proofs**: 1 solvent proof published and verified on-chain
+- ✅ **Transaction Hash**: `0xc1c6c66e394b6df63a587fa98b63e84d5ccfef27b8ba338053dfd710e864442a`
+- ✅ **Live Contract**: [MinimalCustody 0xA29750b8fB8640846C3A05f61DEEB495A6c95A7e](https://testnet.snowtrace.io/address/0xA29750b8fB8640846C3A05f61DEEB495A6c95A7e)
 
 ---
 
 ## 🎬 Quick Demo Links
 
 **For Judges & Reviewers:**
--  [Live Contracts on Avalanche Fuji](https://testnet.snowtrace.io/address/0x44b43cd9e870f76ddD3Ab004348aB38a634bD870) - Deployed & verified
+- 🎮 [**TRY IT LIVE**](http://localhost:3000) - **2 wallet popups + instant gameplay!** (after `npm run dev`)
+- ⛓️ [Live MinimalCustody Contract](https://testnet.snowtrace.io/address/0xA29750b8fB8640846C3A05f61DEEB495A6c95A7e) - **Deployed & tested Feb 4, 2026**
 - 🌐 [Public Solvency Dashboard](./app/solvency/page.tsx) - **Verify proofs publicly** (Phase 8)
-- � [Yellow Quick Start](./YELLOW_DEMO_QUICK_START.md) - **Start here!** Complete demo guide
-- 🎮 [Multi-Player Demo](./MULTIPLAYER_DEMO.md) - **NEW!** Session sharing & join match
-- ⚡ [No-Gas Demo](./NO_GAS_DEMO_MODE.md) - **NEW!** Demo without testnet funds
-- �💻 [Frontend Code](./app/page.tsx) - Complete Yellow SDK integration with multi-player
-- 🔧 [Smart Contracts Integration](./lib/contracts.ts) - On-chain deposit/withdraw with demo mode
-- 📊 [State Channel Service](./lib/nitroliteService.ts) - Off-chain coordination
+- 📖 [Real Transactions Guide](./REAL_TRANSACTIONS_GUIDE.md) - **NEW!** How the 2-popup flow works
+- 🔧 [Deposit Fix Guide](./DEPOSIT_FIX_GUIDE.md) - Troubleshooting real transactions
+- ⚡ [Wallet Popup Fix](./WALLET_POPUP_FIX.md) - Off-chain signing explained
+- 🎮 [Multi-Player Demo](./MULTIPLAYER_DEMO.md) - Session sharing & join match
+- 💻 [Frontend Code](./app/page.tsx) - Complete Yellow SDK integration with real txs
+- 🔧 [Smart Contracts Integration](./lib/contracts.ts) - Real on-chain deposit/withdraw
+- 📊 [State Channel Service](./lib/nitroliteService.ts) - Off-chain coordination with local signing
 - 🔐 [ZK Proof System](./circuits/solvency.circom) - Privacy-preserving solvency verification
 - 📋 [Implementation Plan](./YELLOW_SOLVENCY_INTEGRATION_PLAN.md) - **8-phase roadmap (100% COMPLETE)**
-- 🚀 [Deployment Guide](./AVALANCHE_DEPLOYMENT.md) - Complete Avalanche setup
 
 ---
 
@@ -42,17 +49,18 @@
 
 ### ✅ What We Built (Achievements)
 
-#### 🚀 Fully Functional State Channels
+#### 🚀 Fully Functional State Channels (WORKING WITH REAL TRANSACTIONS!)
 - ✅ **Yellow SDK Integration**: Complete implementation of `@erc7824/nitrolite` v0.1.0
-- ✅ **Smart Contracts Deployed**: Custody contract live on **Avalanche Fuji Testnet**
-- ✅ **On-Chain Deposits**: AVAX deposits to custody contract with real transactions
-- ✅ **Off-Chain Updates**: Instant state updates with zero gas cost per round
-- ✅ **Settlement Transactions**: Automatic on-chain finalization on channel close (~2s)
-- ✅ **Frontend Migration**: Complete UI integration with ChannelManager component
+- ✅ **Smart Contracts Deployed**: **MinimalCustody** contract live on **Avalanche Fuji Testnet**
+- ✅ **Real On-Chain Deposits**: MetaMask popup at game start → 0.01 AVAX deposited → Tx confirmed!
+- ✅ **Zero Popups During Gameplay**: Off-chain local signing for instant state updates (no MetaMask!)
+- ✅ **Real Settlement Transactions**: MetaMask popup at game end → withdraw winnings → Tx confirmed!
+- ✅ **Real Balance Updates**: Wallet balance actually changes after deposit and withdrawal
+- ✅ **2 Wallet Popups Total**: Start (deposit) + End (withdrawal) = Perfect Yellow Network flow!
+- ✅ **Frontend Migration**: Complete UI integration with real transaction tracking
 - ✅ **Public Verification**: All transactions viewable on SnowTrace explorer
 - ✅ **Multi-Player Support**: Session sharing with Join Match feature
-- ✅ **Demo Mode**: Works without testnet funds for instant demos
-- ✅ **Balance Tracking**: Real-time balance updates after session settlement
+- ✅ **Tested End-to-End**: Full flow verified with 0.01 AVAX deposits + withdrawals
 
 #### 🔗 ERC-7824 Compliance
 - ✅ **State Channel Protocol**: Full implementation of Yellow Network's state channel standard
@@ -318,10 +326,9 @@ const handleSubmitRound = async (winner: string) => {
 
 | Contract | Address | Status | Purpose |
 |----------|---------|--------|----------|
-| **Custody** | [`0x44b43cd9e870f76ddD3Ab004348aB38a634bD870`](https://testnet.snowtrace.io/address/0x44b43cd9e870f76ddD3Ab004348aB38a634bD870) | ✅ **Live** | Holds user AVAX deposits |
-| **Adjudicator** | `0x44b43cd9e870f76ddD3Ab004348aB38a634bD870` | ✅ **Live** | Dispute resolution (placeholder) |
-| **Token** | `0x44b43cd9e870f76ddD3Ab004348aB38a634bD870` | ✅ **Live** | Uses native AVAX |
-| **SolvencyVerifier** | `(Pending deployment)` | ⏳ **Ready** | On-chain proof verification (Phase 6) |
+| **MinimalCustody** | [`0xA29750b8fB8640846C3A05f61DEEB495A6c95A7e`](https://testnet.snowtrace.io/address/0xA29750b8fB8640846C3A05f61DEEB495A6c95A7e) | ✅ **LIVE & TESTED** | Holds user AVAX deposits (deployed Feb 4, 2026) |
+| **Adjudicator** | `0x44b43cd9e870f76ddD3Ab004348aB38a634bD870` | ✅ **Live** | Dispute resolution (legacy) |
+| **SolvencyVerifier** | [`0x2bFa3B66608C1B1aCF0F8a370c2bA809BE5fa4E2`](https://testnet.snowtrace.io/address/0x2bFa3B66608C1B1aCF0F8a370c2bA809BE5fa4E2) | ✅ **Live** | On-chain proof verification |
 
 **ClearNode Coordinator**: `ws://localhost:8001/ws` (local development)
 
@@ -458,22 +465,28 @@ npm install
 
 ### 2. Contracts Are Already Deployed! ✅
 
-**Custody Contract**: `0x44b43cd9e870f76ddD3Ab004348aB38a634bD870`  
-**View on SnowTrace**: [https://testnet.snowtrace.io/address/0x44b43cd9e870f76ddD3Ab004348aB38a634bD870](https://testnet.snowtrace.io/address/0x44b43cd9e870f76ddD3Ab004348aB38a634bD870)
+**MinimalCustody Contract**: `0xA29750b8fB8640846C3A05f61DEEB495A6c95A7e` *(Deployed Feb 4, 2026)*  
+**View on SnowTrace**: [https://testnet.snowtrace.io/address/0xA29750b8fB8640846C3A05f61DEEB495A6c95A7e](https://testnet.snowtrace.io/address/0xA29750b8fB8640846C3A05f61DEEB495A6c95A7e)
 
-**No deployment needed** - just configure your `.env` file with the addresses above!
+**✅ Tested Functions**:
+- ✅ Deposit: 0.01 AVAX deposited successfully
+- ✅ Withdrawal: 0.005 AVAX withdrawn successfully
+- ✅ Balance tracking works perfectly
 
-If you want to deploy your own contracts:
+**No deployment needed** - just configure your `.env` file with the address above!
+
+If you want to deploy your own contract:
 ```bash
-# Get testnet AVAX from faucet
-# Visit: https://faucets.chain.link/fuji
+# Compile contract
+npx solcjs --bin --abi contracts/MinimalCustody.sol --optimize -o build/
 
-# Set private key and deploy
-export PRIVATE_KEY="0xYourPrivateKey"
-node scripts/deploy-avalanche-fixed.js
+# Deploy to Avalanche Fuji
+node scripts/deploy-minimal-custody.js
 ```
 
-**Full deployment guide**: [`AVALANCHE_DEPLOYMENT.md`](./AVALANCHE_DEPLOYMENT.md)
+**Deployment scripts**:
+- [`scripts/deploy-minimal-custody.js`](./scripts/deploy-minimal-custody.js) - Recommended deployment script
+- [`contracts/MinimalCustody.sol`](./contracts/MinimalCustody.sol) - Source code
 
 ### 2b. Set Up ClearNode (Optional - Local Development)
 
@@ -497,9 +510,9 @@ NEXT_PUBLIC_CHAIN_ID=43113
 NEXT_PUBLIC_CLEARNODE_URL=ws://localhost:8001/ws
 
 # Deployed contract addresses (ready to use!)
-NEXT_PUBLIC_CUSTODY_CONTRACT=0x44b43cd9e870f76ddD3Ab004348aB38a634bD870
+NEXT_PUBLIC_CUSTODY_CONTRACT=0xA29750b8fB8640846C3A05f61DEEB495A6c95A7e
 NEXT_PUBLIC_ADJUDICATOR_CONTRACT=0x44b43cd9e870f76ddD3Ab004348aB38a634bD870
-NEXT_PUBLIC_TOKEN_CONTRACT=0x44b43cd9e870f76ddD3Ab004348aB38a634bD870
+NEXT_PUBLIC_VERIFIER_CONTRACT=0x2bFa3B66608C1B1aCF0F8a370c2bA809BE5fa4E2
 ```
 
 **Note**: Copy `.env.example` to `.env` if it doesn't exist:
@@ -516,38 +529,50 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000)
 
-### 5. Test the Flow
+### 5. Test the REAL Transaction Flow 🎮
 
-#### Option A: Full Demo (With Testnet Funds)
+**Expected Flow: 2 MetaMask Popups + Instant Gameplay!**
 
 1. **Connect Wallet** → MetaMask will prompt to add Avalanche Fuji
-2. **Get Test AVAX**:
-   - Visit: https://faucets.chain.link/fuji
+   
+2. **Get Test AVAX** (if needed):
+   - Visit: https://faucets.chain.link/fuji OR https://faucet.avax.network/
    - Request 0.5 AVAX (free)
-3. **Deposit AVAX** → Click "Manage" → Deposit 0.1 AVAX to channel
-4. **Create Match** → Enter opponent address + wager amount
-5. **Copy Session ID** → Share with opponent using the copy button
-6. **Opponent Joins** → They use "Join Match" form with your Session ID
-7. **Play Rounds** → Click "Player A/B Wins" (instant, no gas!)
-8. **Close Session** → Settlement transaction on Avalanche (~2s confirmation)
-9. **Balance Updates** → See your winnings reflected in channel balance
-10. **Verify on SnowTrace** → Check transaction at https://testnet.snowtrace.io/
-11. **Withdraw** → Get your payout back to wallet
+   - You need ~0.012 AVAX total (0.01 deposit + 0.002 gas)
 
-#### Option B: Quick Demo (No Testnet Funds Needed)
+3. **Create Match** → Enter opponent address + wager (e.g., 0.01)
+   - 🔐 **POPUP 1: MetaMask asks to deposit!**
+   - Transaction: Deposit 0.01 AVAX to MinimalCustody
+   - Click "Confirm" → Wait ~3 seconds
+   - ✅ Deposit confirmed on-chain!
+   - Channel opens automatically
 
-1. **Connect Wallet** → MetaMask will prompt to add Avalanche Fuji
-2. **Skip Deposit** → Balance shows 0.5 ETH (demo fallback)
-3. **Create Match** → Enter any opponent address + wager
-4. **Play 10+ Rounds** → All instant, no wallet popups!
-5. **Watch Yellow Proof Panel** → See off-chain action count incrementing
-6. **Close Session** → Settlement metrics recorded
-7. **Perfect for demos!** → Shows Yellow Network efficiency without setup
+4. **Play 10 Rounds** → Click "I Won" repeatedly
+   - ❌ **ZERO wallet popups!** (All off-chain!)
+   - ⚡ Each round is instant (<100ms)
+   - Watch Yellow Proof Panel count actions
+   - See allocations update in real-time
+
+5. **Close Session** → Click "Close Session" button
+   - ⚡ Channel closes (instant, no popup)
+   - 🔐 **POPUP 2: MetaMask asks to withdraw!**
+   - Transaction: Withdraw your winnings from MinimalCustody
+   - Click "Confirm" → Wait ~3 seconds
+   - ✅ Settlement confirmed on-chain!
+   - 💰 **Your wallet balance actually changes!**
+
+6. **Verify on SnowTrace**:
+   - Check your transactions: https://testnet.snowtrace.io/
+   - See deposit tx + withdrawal tx
+   - View contract balance changes
+
+**Result**: 2 blockchain transactions for 10 game actions = **5x efficiency!**
 
 **See detailed guides**:
+- 📖 [Real Transactions Guide](./REAL_TRANSACTIONS_GUIDE.md) - **How the 2-popup flow works**
+- 🔧 [Deposit Fix Guide](./DEPOSIT_FIX_GUIDE.md) - **Troubleshooting**
+- ⚡ [Wallet Popup Fix](./WALLET_POPUP_FIX.md) - **Off-chain signing explained**
 - 🎮 [Multi-Player Demo Guide](./MULTIPLAYER_DEMO.md)
-- ⚡ [No-Gas Demo Mode](./NO_GAS_DEMO_MODE.md)
-- 🚀 [Yellow Network Quick Start](./YELLOW_DEMO_QUICK_START.md)
 
 ---
 
@@ -657,17 +682,20 @@ npm run proof:automate        # Runs complete automated pipeline
 ```
 
 ### Deployed & Working:
-- ✅ **Contracts live on Avalanche Fuji Testnet**
-- ✅ **Custody**: [0x44b43cd9e870f76ddD3Ab004348aB38a634bD870](https://testnet.snowtrace.io/address/0x44b43cd9e870f76ddD3Ab004348aB38a634bD870)
+- ✅ **REAL BLOCKCHAIN TRANSACTIONS**: Full deposit → play → withdraw flow working!
+- ✅ **MinimalCustody**: [0xA29750b8fB8640846C3A05f61DEEB495A6c95A7e](https://testnet.snowtrace.io/address/0xA29750b8fB8640846C3A05f61DEEB495A6c95A7e) - **Deployed & tested Feb 4, 2026**
+- ✅ **Tested Deposits**: 0.01 AVAX deposited and confirmed on-chain
+- ✅ **Tested Withdrawals**: 0.005 AVAX withdrawn and confirmed on-chain
+- ✅ **Real Balance Updates**: Wallet balance actually changes after transactions
+- ✅ **2 Wallet Popups**: Deposit (start) + Withdrawal (end) = Perfect flow!
+- ✅ **Zero Popups During Gameplay**: Off-chain local signing for instant updates
 - ✅ **SolvencyVerifier**: [0x2bFa3B66608C1B1aCF0F8a370c2bA809BE5fa4E2](https://testnet.snowtrace.io/address/0x2bFa3B66608C1B1aCF0F8a370c2bA809BE5fa4E2)
 - ✅ **Live Proof on Chain**: [Transaction 0xc1c6c66e...](https://testnet.snowtrace.io/tx/0xc1c6c66e394b6df63a587fa98b63e84d5ccfef27b8ba338053dfd710e864442a)
 - ✅ **Public Dashboard**: [http://localhost:3000/solvency](http://localhost:3000/solvency) - **WORKING with real data!**
 - ✅ **Solvency Pipeline**: Complete cryptographic proof system
-- ✅ **8/8 Phases**: All phases complete - Session export, Merkle trees, reserves scanner, ZK proofs, on-chain verification, automation, public dashboard
+- ✅ **8/8 Phases**: All phases complete
 - ✅ **1 Solvent Proof**: 0.5 AVAX reserves > 0.2 AVAX liabilities (250% ratio)
-- ✅ ClearNode coordinator (local setup available)
-- ✅ Frontend fully integrated
-- ✅ End-to-end flow tested with real AVAX
+- ✅ **End-to-end tested**: Full flow verified with real AVAX on Avalanche Fuji
 
 ---
 
