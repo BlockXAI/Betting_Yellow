@@ -183,14 +183,34 @@ export default function Home() {
     
     setIsLoading(true);
     try {
-      // Open Yellow state channel
+      // 🔐 STEP 1: ON-CHAIN DEPOSIT (triggers MetaMask popup!)
+      addLog('info', '💰 Depositing to custody contract (on-chain)...', { amount: wager });
+      
+      try {
+        const { depositToChannel, waitForTransaction } = await import('@/lib/contracts');
+        const depositTx = await depositToChannel(wager);
+        addLog('info', '⏳ Waiting for deposit confirmation...', { txHash: depositTx.hash });
+        
+        await waitForTransaction(depositTx, 1);
+        addLog('info', '✅ Deposit confirmed on-chain!', { txHash: depositTx.hash });
+        
+        // Reload balance after deposit
+        if (walletAddress) {
+          await loadChannelBalance(walletAddress);
+        }
+      } catch (depositError: any) {
+        // If deposit fails, continue in demo mode
+        addLog('info', '⚠️ Deposit failed, continuing in demo mode', { error: depositError.message });
+      }
+      
+      // ⚡ STEP 2: OPEN OFF-CHAIN CHANNEL (no popup!)
       const participants = [walletAddress, opponent];
       const initialDeposits = {
         [walletAddress]: wager,
         [opponent]: wager,
       };
       
-      addLog('info', '🔓 Opening Yellow state channel...', { participants, deposits: initialDeposits });
+      addLog('info', '🔓 Opening Yellow state channel (off-chain)...', { participants, deposits: initialDeposits });
       
       const channelState = await service.openChannel(participants, initialDeposits);
       
@@ -343,21 +363,49 @@ export default function Home() {
     
     setIsLoading(true);
     try {
-      addLog('info', '🔒 Closing Yellow state channel...', {
+      // ⚡ STEP 1: CLOSE OFF-CHAIN CHANNEL (no popup!)
+      addLog('info', '🔒 Closing Yellow state channel (off-chain)...', {
         channelId: currentSession.sessionId,
         finalAllocations: currentSession.allocations,
       });
       
-      // Close channel (triggers on-chain settlement)
       await service.closeChannel();
       
       // Track settlement metrics
       const totalActions = currentSession.round;
+      let settlementTxHash = 'demo_mode_' + Date.now();
+      
+      // 🔐 STEP 2: ON-CHAIN WITHDRAWAL (triggers MetaMask popup!)
+      addLog('info', '💸 Withdrawing from custody contract (on-chain settlement)...', {
+        amount: currentSession.allocations[walletAddress || ''],
+      });
+      
+      try {
+        const { withdrawFromChannel, waitForTransaction } = await import('@/lib/contracts');
+        const myAllocation = currentSession.allocations[walletAddress || ''] || '0';
+        
+        if (parseFloat(myAllocation) > 0) {
+          const withdrawTx = await withdrawFromChannel(myAllocation);
+          addLog('info', '⏳ Waiting for settlement confirmation...', { txHash: withdrawTx.hash });
+          
+          await waitForTransaction(withdrawTx, 1);
+          addLog('info', '✅ Settlement confirmed on-chain!', { txHash: withdrawTx.hash });
+          settlementTxHash = withdrawTx.hash;
+          
+          // Reload balance after withdrawal
+          if (walletAddress) {
+            await loadChannelBalance(walletAddress);
+          }
+        }
+      } catch (withdrawError: any) {
+        addLog('info', '⚠️ Withdrawal failed, showing demo results', { error: withdrawError.message });
+      }
+      
       setYellowMetrics(prev => ({
         ...prev,
         sessionActive: false,
         totalActionsPerSettlement: totalActions,
-        settlementTxHash: 'mock_settlement_' + Date.now(), // In real impl, get from tx receipt
+        settlementTxHash,
       }));
       
       addLog('info', '✅ Channel closed successfully');
@@ -377,15 +425,11 @@ export default function Home() {
       addLog('info', '📊 Auto-exporting session data...');
       await exportSessionData();
       
-      // Update balance to reflect session outcome
+      // Update balance display
       if (walletAddress) {
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         await loadChannelBalance(walletAddress);
-        
-        // Update displayed balance with session winnings
-        const newBalance = currentSession.allocations[walletAddress] || '0';
-        setChannelBalance(newBalance);
-        addLog('info', `💰 Channel balance updated: ${newBalance} ETH`);
+        addLog('info', `💰 Balance updated after settlement`);
       }
     } catch (err: any) {
       addLog('error', '❌ Failed to close session', err?.message || err);

@@ -7,15 +7,16 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "merkle:build": "npx tsx scripts/build-merkle-tree.ts",
+    "clearnode:mock": "node scripts/mock-clearnode.js",
+    "deploy:custody": "node scripts/deploy-simple-custody.js",
+    "merkle:build": "ts-node scripts/build-merkle-tree.ts",
     "reserves:scan": "npx tsx scripts/scan-reserves.ts",
     "proof:generate": "npx tsx scripts/generate-proof.ts",
     "proof:verify": "npx tsx scripts/verify-proof.ts",
     "proof:publish": "npx tsx scripts/publish-proof.ts",
     "proof:verify-onchain": "npx tsx scripts/verify-on-chain.ts",
     "proof:automate": "npx tsx scripts/automate-proof.ts",
-    "verifier:deploy": "node scripts/deploy-verifier.js",
-    "clearnode:mock": "node scripts/mock-clearnode.js"
+    "verifier:deploy": "node scripts/deploy-verifier.js"
   },
   "dependencies": {
     "@erc7824/nitrolite": "^0.1.0",
